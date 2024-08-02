@@ -1,0 +1,64 @@
+# single linked list using python with crud (create, read, update, delete) operations
+
+"""
+A basic implementation of a single linked list in Python, supporting CRUD operations:
+
+Insert Node: Add new nodes to the list.
+Print Nodes: Display all nodes in the list.
+Delete Node: Remove a specified node from the list.
+Update Node: Update the data of a specified node.
+"""
+
+class Node:
+    def __init__(self, data = None, next = None):
+        self.data = data
+        self.next = next
+        
+class SingleLinkedList:
+    def __init__(self):
+        self.first_node = self.current_node = Node()
+        
+    def insertNode(self, data):
+        if (self.first_node.data is None):
+            self.first_node.data = data
+            self.current_node = self.first_node
+        else:
+            self.new_node = Node()
+            self.new_node.data = data
+            self.current_node.next = self.new_node
+            self.current_node = self.new_node
+            
+    def printNode(self):
+        self.current_node = self.first_node
+        print()
+        while (self.current_node is not None):
+            print(self.current_node.data, end=" -> ")
+            self.current_node = self.current_node.next
+        print("Node Ended")
+        
+    def updateNode(self, old_data, data):
+        self.current_node = self.first_node
+        while (self.current_node is not None):
+            if (self.current_node.data == old_data):
+                self.current_node.data = data
+            self.current_node = self.current_node.next
+    
+    def deleteNode(self, data):
+        self.current_node = self.first_node
+        if (self.current_node.data == data):
+            self.first_node = self.first_node.next
+        while (self.current_node is not None):
+            self.current_node = self.current_node.next
+object = SingleLinkedList()
+
+choice = True
+while (choice):
+    data = input("Enter the data: ")
+    object.insertNode(data)
+    choice = input("Do you want to continue: [y/n] ")
+    if (choice == "y"): choice = True
+    elif (choice == "n"): choice = False
+
+
+object.deleteNode("1")
+object.printNode()
