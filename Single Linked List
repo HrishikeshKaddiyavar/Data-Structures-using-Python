@@ -19,9 +19,11 @@ class SingleLinkedList:
         self.first_node = self.current_node = Node()
         
     def insertNode(self, data):
+        # inserting first node
         if (self.first_node.data is None):
             self.first_node.data = data
             self.current_node = self.first_node
+        # inserting other node
         else:
             self.new_node = Node()
             self.new_node.data = data
@@ -45,10 +47,15 @@ class SingleLinkedList:
     
     def deleteNode(self, data):
         self.current_node = self.first_node
+        # deleting node at beginning
         if (self.current_node.data == data):
             self.first_node = self.first_node.next
-        while (self.current_node is not None):
-            self.current_node = self.current_node.next
+        # deleting node at middle
+        else:
+            self.previous_node = Node()
+            self.previous_node = self.current_node
+            while (self.current_node is not None):
+                self.current_node = self.current_node.next
 object = SingleLinkedList()
 
 choice = True
