@@ -18,7 +18,8 @@ class SingleLinkedList:
     def __init__(self):
         self.first_node = self.current_node = Node()
         
-    def insertNode(self, data):
+    def insertNode(self):
+        data = input("Enter the data: ")
         # inserting first node
         if (self.first_node.data is None):
             self.first_node.data = data
@@ -38,14 +39,17 @@ class SingleLinkedList:
             self.current_node = self.current_node.next
         print("Node Ended")
         
-    def updateNode(self, old_data, data):
+    def updateNode(self):
+        current_data = input("Enter the current data: ")
+        new_data = input("Enter the new data: ")
         self.current_node = self.first_node
         while (self.current_node is not None):
             if (self.current_node.data == old_data):
                 self.current_node.data = data
             self.current_node = self.current_node.next
     
-    def deleteNode(self, data):
+    def deleteNode(self):
+        data = input("Enter the data: ")
         self.current_node = self.first_node
         # deleting node at beginning
         if (self.current_node.data == data):
@@ -54,18 +58,37 @@ class SingleLinkedList:
         else:
             self.previous_node = Node()
             self.previous_node = self.current_node
+            self.current_node = self.current_node.next
             while (self.current_node is not None):
+                if (self.current_node.data == data):
+                    self.previous_node.next = self.current_node.next
+                self.previous_node = self.previous_node.next
                 self.current_node = self.current_node.next
+    
+    def isEmpty(self):
+        if (self.first_node.data is None): return True
+        else: return False
+        
 object = SingleLinkedList()
 
-choice = True
-while (choice):
-    data = input("Enter the data: ")
-    object.insertNode(data)
-    choice = input("Do you want to continue: [y/n] ")
-    if (choice == "y"): choice = True
-    elif (choice == "n"): choice = False
+print("Welcome to Single Linked List Operation")
+print("""
+Operations Menu:
+  1. Insert Node (c)
+  2. Print Node (r)
+  3. Update Node (u)
+  4. Delete Node (d)
+  5. Exit the Operation (e)
+""")
 
-
-object.deleteNode("1")
-object.printNode()
+while (True):
+    if (object.isEmpty()):
+        object.insertNode()
+    else:
+        choice = input("Enter the option: [c/r/u/d/e] ")
+        if (choice == 'c'): object.insertNode()
+        elif (choice == 'r'): object.printNode()
+        elif (choice == 'u'): object.updateNode()
+        elif (choice == 'd'): object.deleteNode()
+        elif (choice == 'e'): break
+        else: print("Enter valid options among [")
